@@ -1,0 +1,19 @@
+{
+  "name": "grunt-demo",
+  "version": "1.0.0",
+  "description": "Files for grunt demo at KRDS",
+  "main": "index.js",
+  "scripts": {
+    "test": "grunt test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/joerx/grunt-krds-demo.git"
+  },
+  "author": "Joerg Henning \"joerg.henning@krds.fr\"",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/joerx/grunt-krds-demo/issues"
+  },
+  "homepage": "https://github.com/joerx/grunt-krds-demo#readme"
+}
