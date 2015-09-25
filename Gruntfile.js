@@ -29,6 +29,14 @@ module.exports = function(grunt) {
       }
     },
 
+    less: {
+      app: {
+        files: {
+          './public/dist/style.css': './public/style.less'
+        }
+      }
+    },
+
     // very useful task for development: watch a set of files and execute a task when they change
     watch: {
       public: {
@@ -39,17 +47,23 @@ module.exports = function(grunt) {
     }
   });
 
+
+
   // load tasks installed via NPM module (aka 'grunt plugins')
   grunt.loadNpmTasks('grunt-exec');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-contrib-less');
+
+
 
   // aliases for other tasks defined here and groups of tasks
   grunt.registerTask('test', ['exec:tests']);
-  grunt.registerTask('build', ['test', 'bundle', 'uglify']);
+  grunt.registerTask('build', ['test', 'bundle', 'uglify', 'less']);
 
   // 'default' task will be executed if grunt is invoked w/o arguments
   grunt.registerTask('default', 'build');
+
 
 
   // normally this task should be in an extra file and loaded via grunt.loadTasks. For simplicity,
@@ -69,7 +83,10 @@ module.exports = function(grunt) {
     // bundle it and pipe it to the target
     var bundle = browserify({entries: data.entries, debug: !!data.debug}).bundle();
     var out = fs.createWriteStream(data.bundle);
-    out.on('close', done);
+    out.on('close', function() {
+      grunt.log.writeln('Bundle written to ' + data.bundle);
+      done();
+    });
     out.on('error', function(e) {grunt.fail.warn(e)});
 
     // smoke it!
